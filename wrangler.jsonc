@@ -1,0 +1,54 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "cf-ai-agent-2",
+	"main": "worker/index.ts",
+	"compatibility_date": "2025-09-03",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"assets": {
+		"not_found_handling": "single-page-application",
+		"binding": "ASSETS",
+		"run_worker_first": ["/api/*", "/files/*"]
+	},
+	"observability": {
+		"enabled": true
+	},
+	"placement": {
+		"mode": "smart"
+	},
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "AI_AGENT",
+				"class_name": "AIAgent"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"AIAgent"
+			]
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "agent_sessions",
+			"id": "3e7e515f8a9542b2a4515945af4228ec"
+		}
+	],
+	"r2_buckets": [
+		{
+			"bucket_name": "agent-browser-uploads-2",
+			"binding": "agent_browser_uploads"
+		}
+	],
+	"browser": {
+		"binding": "BROWSER"
+	}
+}
